@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Scrum Board</string>
+
+    <string name="todo_tab">To Do</string>
+    <string name="doing_tab">Doing</string>
+    <string name="done_tab">Done</string>
+</resources>
