@@ -1,5 +1,6 @@
 package com.ap.scrumboard;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -7,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ScrumDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "scrum";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 3;
 
     ScrumDatabaseHelper(Context context){
         super(context,DB_NAME,null,DB_VERSION);
@@ -22,6 +23,20 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
         updateMyDatabase(db,oldVersion,newVersion);
     }
 
+    public static void insertMain(SQLiteDatabase db,String mainTask){
+        ContentValues mailValues = new ContentValues();
+        mailValues.put(Contract.PARENT_TASK,mainTask);
+
+        db.insert(Contract.PARENT_TABLE,null,mailValues);
+    }
+
+    public static void insertEmp(SQLiteDatabase db,String employee){
+        ContentValues mailValues = new ContentValues();
+        mailValues.put(Contract.EMPLOYEE,employee);
+
+        db.insert(Contract.EMPLOYEE_TABLE,null,mailValues);
+    }
+
     private void updateMyDatabase(SQLiteDatabase db,int oldVersion, int newVersion) {
 
         if (oldVersion < 1) {
@@ -30,6 +45,19 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.SUB_TABLE);
             db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT,"+ Contract.STATUS + "TEXT,"+Contract.EMPLOYEE +"TEXT);");
 
+        }
+        if(oldVersion < 2){
+            db.execSQL(" DROP TABLE IF EXISTS "+Contract.EMPLOYEE_TABLE);
+            db.execSQL(" CREATE TABLE " + Contract.EMPLOYEE_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.EMPLOYEE + " TEXT);");
+
+        }
+        if(oldVersion < 3){
+            insertMain(db,"Main task 1");
+            insertMain(db,"Main task 2");
+            insertMain(db,"Main task 3");
+            insertEmp(db,"Employee 1");
+            insertEmp(db,"Employee 2");
+            insertEmp(db,"Employee 3");
         }
     }
 

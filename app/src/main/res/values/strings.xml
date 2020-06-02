@@ -4,4 +4,9 @@
     <string name="todo_tab">To Do</string>
     <string name="doing_tab">Doing</string>
     <string name="done_tab">Done</string>
+    <string-array name="status">
+        <item>To Do</item>
+        <item>Doing</item>
+        <item>Done</item>
+    </string-array>
 </resources>
