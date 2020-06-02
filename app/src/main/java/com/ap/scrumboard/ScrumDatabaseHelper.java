@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ScrumDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "scrum";
-    private static final int DB_VERSION = 15;
+    private static final int DB_VERSION = 17;
 
     ScrumDatabaseHelper(Context context){
         super(context,DB_NAME,null,DB_VERSION);
@@ -50,25 +50,25 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
 
         if (oldVersion < 1) {
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.PARENT_TABLE);
-            db.execSQL(" CREATE TABLE " + Contract.PARENT_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.PARENT_TASK + " TEXT);");
+            db.execSQL(" CREATE TABLE " + Contract.PARENT_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.PARENT_TASK + " TEXT UNIQUE);");
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.SUB_TABLE);
             db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT, STATUS INTEGER,"+Contract.EMPLOYEE +"TEXT);");
 
         }
-        if(oldVersion < 2){
+        if(oldVersion < 17){
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.EMPLOYEE_TABLE);
             db.execSQL(" CREATE TABLE " + Contract.EMPLOYEE_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.EMPLOYEE + " TEXT);");
 
         }
-        if(oldVersion < 3){
+        if(oldVersion <17){
             insertMain(db,"Main task 1");
             insertMain(db,"Main task 2");
             insertMain(db,"Main task 3");
-            insertEmp(db,"Employee 1");
-            insertEmp(db,"Employee 2");
-            insertEmp(db,"Employee 3");
+            insertEmp(db,"Employee1");
+            insertEmp(db,"Employee2");
+            insertEmp(db,"Employee3");
         }
-        if(oldVersion < 15){
+        if(oldVersion < 17){
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.SUB_TABLE);
             db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT, STATUS TEXT,EMPLOYEE TEXT);");
 

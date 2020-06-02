@@ -62,6 +62,7 @@ public class MainTodoFragment extends Fragment {
             }
         }).attachToRecyclerView(toDoRecycler);
 
+
         adapter.setListner(new CardListAdapter.Listener() {
             @Override
             public void onClick(String mainTask) {
@@ -77,7 +78,7 @@ public class MainTodoFragment extends Fragment {
         return toDoRecycler;
     }
     private void removeItem(String id){
-        db.delete("SUBTABLE","PARENT =?",new String[]{id});
+        db.delete("PARENTTABLE","PARENTTASK =?",new String[]{id});
         adapter.swapCursor(getAllItems());
     }
 

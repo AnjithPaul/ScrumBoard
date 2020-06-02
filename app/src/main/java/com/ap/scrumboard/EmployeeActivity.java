@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 public class EmployeeActivity extends AppCompatActivity {
     public static final String EMPLOYEE ="employee";
     private String emp ;
+    private Fragment frag = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +51,20 @@ public class EmployeeActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+
             switch (position) {
                 case 0:
-                    return new MainTodoFragment();
-
-
+                    MainTodoFragment frag= new MainTodoFragment();
+                    frag.setEmp(emp);
+                    return frag;
                 case 1:
-                    return new MainDoingFragment();
+                    MainDoingFragment frag2 =  new MainDoingFragment();
+                    frag2.setEmp(emp);
+                    return frag2;
                 case 2:
-                    return new MainDoneFragment();
+                    MainDoneFragment frag3 =  new MainDoneFragment();
+                    frag3.setEmp(emp);
+                    return frag3;
             }
             return null;
         }

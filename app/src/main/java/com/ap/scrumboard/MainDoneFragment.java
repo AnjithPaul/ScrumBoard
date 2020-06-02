@@ -25,6 +25,7 @@ public class MainDoneFragment extends Fragment {
     private SQLiteDatabase db;
     private CardListAdapter adapter;
     private int n;
+    private String emp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,5 +87,8 @@ public class MainDoneFragment extends Fragment {
 
     private Cursor getAllItems() {
         return db.query(Contract.SUB_TABLE, new String[]{Contract.ID,Contract.SUB_TASK,Contract.PARENT,Contract.STATUS,Contract.EMPLOYEE}, null, null, null, null,null);
+    }
+    public void setEmp(String string){
+        this.emp= string;
     }
 }

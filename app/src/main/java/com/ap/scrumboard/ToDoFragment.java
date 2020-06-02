@@ -78,7 +78,7 @@ public class ToDoFragment extends Fragment {
         return toDoRecycler;
     }
     private void removeItem(String id){
-        db.delete("SUBTABLE","PARENT =?",new String[]{id});
+        db.delete("PARENTTABLE","PARENTTASK =?",new String[]{id});
         adapter.swapCursor(getAllItems());
     }
 
