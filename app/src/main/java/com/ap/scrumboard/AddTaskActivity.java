@@ -113,8 +113,8 @@ public class AddTaskActivity extends AppCompatActivity {
         dbHelper = new ScrumDatabaseHelper(this);
         try{
             SQLiteDatabase db = dbHelper.getWritableDatabase();
-            db.insert(Contract.SUB_TABLE,null,cv);
-            db.close();
+            db.insert("SUBTABLE",null,cv);
+
 
         }catch (SQLException e){
             Toast toast = Toast.makeText(this,"Database unavailable",Toast.LENGTH_SHORT);
@@ -134,7 +134,7 @@ public class AddTaskActivity extends AppCompatActivity {
         try{
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             db.insert(Contract.EMPLOYEE_TABLE,null,cv);
-            db.close();
+
 
         }catch (SQLException e){
             Toast toast = Toast.makeText(this,"Database unavailable",Toast.LENGTH_SHORT);
