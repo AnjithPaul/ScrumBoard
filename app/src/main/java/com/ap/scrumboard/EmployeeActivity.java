@@ -1,9 +1,7 @@
 package com.ap.scrumboard;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.ShareActionProvider;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -11,31 +9,32 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
-
-
+public class EmployeeActivity extends AppCompatActivity {
+    public static final String EMPLOYEE ="employee";
+    private String emp ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+      //  emp = getIntent().getExtras().toString();
 
+        setContentView(R.layout.activity_employee);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
 
-        SectionsPagerAdapter pagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter pagerAdapter = new EmployeeActivity.SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
+
+        //emp = getIntent().getExtras().toString();
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -53,11 +52,13 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new ToDoFragment();
+                    return new MainTodoFragment();
+
+
                 case 1:
-                    return new DoingFragment();
+                    return new MainDoingFragment();
                 case 2:
-                    return new DoneFragment();
+                    return new MainDoneFragment();
             }
             return null;
         }

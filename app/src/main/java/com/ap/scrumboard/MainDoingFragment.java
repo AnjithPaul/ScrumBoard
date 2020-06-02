@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 
-public class DoneFragment extends Fragment {
+public class MainDoingFragment extends Fragment {
     private SQLiteDatabase db;
     private CardListAdapter adapter;
     private int n;
@@ -30,7 +30,7 @@ public class DoneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_done,container,false);
+        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_main_doing,container,false);
 
         final SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(getActivity());
         try {
@@ -39,7 +39,7 @@ public class DoneFragment extends Fragment {
             Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
 
 
-            adapter = new CardListAdapter(getActivity(), mainCursor,"Done");
+            adapter = new CardListAdapter(getActivity(), mainCursor,"Doing");
             toDoRecycler.setAdapter(adapter);
 
         }catch (SQLException e){
@@ -61,8 +61,8 @@ public class DoneFragment extends Fragment {
         }).attachToRecyclerView(toDoRecycler);
 
 
-       */
-/*        adapter.setListner(new CardListAdapter.Listener() {
+
+        adapter.setListner(new CardListAdapter.Listener() {
             @Override
             public void onClick(int id) {
                 Intent intent = new Intent(getActivity(),MainTaskActivity.class);
@@ -72,7 +72,7 @@ public class DoneFragment extends Fragment {
             }
         });
 
- */
+       */
 
 
 

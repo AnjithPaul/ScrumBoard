@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ScrumDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "scrum";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 15;
 
     ScrumDatabaseHelper(Context context){
         super(context,DB_NAME,null,DB_VERSION);
@@ -36,6 +36,15 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
 
         db.insert(Contract.EMPLOYEE_TABLE,null,mailValues);
     }
+    public static void insertSub(SQLiteDatabase db,String subTask,String parent, String status,String employee){
+        ContentValues mailValues = new ContentValues();
+        mailValues.put(Contract.EMPLOYEE,employee);
+        mailValues.put(Contract.SUB_TASK,subTask);
+        mailValues.put(Contract.PARENT,parent);
+        mailValues.put("STATUS",status);
+
+        db.insert(Contract.SUB_TABLE,null,mailValues);
+    }
 
     private void updateMyDatabase(SQLiteDatabase db,int oldVersion, int newVersion) {
 
@@ -43,7 +52,7 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.PARENT_TABLE);
             db.execSQL(" CREATE TABLE " + Contract.PARENT_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.PARENT_TASK + " TEXT);");
             db.execSQL(" DROP TABLE IF EXISTS "+Contract.SUB_TABLE);
-            db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT,"+ Contract.STATUS + "TEXT,"+Contract.EMPLOYEE +"TEXT);");
+            db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT, STATUS INTEGER,"+Contract.EMPLOYEE +"TEXT);");
 
         }
         if(oldVersion < 2){
@@ -59,6 +68,22 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
             insertEmp(db,"Employee 2");
             insertEmp(db,"Employee 3");
         }
+        if(oldVersion < 15){
+            db.execSQL(" DROP TABLE IF EXISTS "+Contract.SUB_TABLE);
+            db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT, STATUS TEXT,EMPLOYEE TEXT);");
+
+            insertSub(db,"Sub task 1","Main task 1","To Do","Employee1");
+            insertSub(db,"Sub task 2","Main task 1","To Do","Employee1");
+            insertSub(db,"Sub task 3","Main task 1","To Do","Employee1");
+            insertSub(db,"Sub task 4","Main task 2","To Do","Employee1");
+            insertSub(db,"Sub task 5","Main task 2","To Do","Employee1");
+            insertSub(db,"Sub task 6","Main task 2","Done","Employee1");
+            insertSub(db,"Sub task ","Main task 2","Doing","Employee1");
+
+
+        }
+
+
     }
 
 

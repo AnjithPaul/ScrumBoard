@@ -21,16 +21,17 @@ import android.widget.Toast;
 import java.util.Objects;
 
 
-public class DoneFragment extends Fragment {
+public class MainTodoFragment extends Fragment {
     private SQLiteDatabase db;
-    private CardListAdapter adapter;
+    private CardListAdaptertwo adapter;
     private int n;
+    private String emp;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_done,container,false);
+        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_main_todo,container,false);
 
         final SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(getActivity());
         try {
@@ -39,7 +40,8 @@ public class DoneFragment extends Fragment {
             Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
 
 
-            adapter = new CardListAdapter(getActivity(), mainCursor,"Done");
+
+            adapter = new CardListAdaptertwo(getActivity(), mainCursor,"To Do",emp);
             toDoRecycler.setAdapter(adapter);
 
         }catch (SQLException e){
@@ -48,7 +50,7 @@ public class DoneFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
-      /*  new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+       /* new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -60,22 +62,17 @@ public class DoneFragment extends Fragment {
             }
         }).attachToRecyclerView(toDoRecycler);
 
-
-       */
-/*        adapter.setListner(new CardListAdapter.Listener() {
+        adapter.setListner(new CardListAdapter.Listener() {
             @Override
-            public void onClick(int id) {
+            public void onClick(String mainTask) {
                 Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,id);
+                intent.putExtra(MainTaskActivity.MAIN,mainTask);
                 getActivity().startActivity(intent);
 
             }
         });
 
- */
-
-
-
+        */
 
         return toDoRecycler;
     }
@@ -86,5 +83,8 @@ public class DoneFragment extends Fragment {
 
     private Cursor getAllItems() {
         return db.query(Contract.SUB_TABLE, new String[]{Contract.ID,Contract.SUB_TASK,Contract.PARENT,Contract.STATUS,Contract.EMPLOYEE}, null, null, null, null,null);
+    }
+    public void setEmp(String string){
+        this.emp= string;
     }
 }

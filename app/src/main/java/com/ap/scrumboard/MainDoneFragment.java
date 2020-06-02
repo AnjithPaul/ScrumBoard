@@ -21,7 +21,7 @@ import android.widget.Toast;
 import java.util.Objects;
 
 
-public class DoneFragment extends Fragment {
+public class MainDoneFragment extends Fragment {
     private SQLiteDatabase db;
     private CardListAdapter adapter;
     private int n;
@@ -30,7 +30,7 @@ public class DoneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_done,container,false);
+        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_main_done,container,false);
 
         final SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(getActivity());
         try {
@@ -61,18 +61,18 @@ public class DoneFragment extends Fragment {
         }).attachToRecyclerView(toDoRecycler);
 
 
-       */
-/*        adapter.setListner(new CardListAdapter.Listener() {
+
+        adapter.setListner(new CardListAdapter.Listener() {
             @Override
-            public void onClick(int id) {
+            public void onClick(String mainTask) {
                 Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,id);
+                intent.putExtra(MainTaskActivity.MAIN,mainTask);
                 getActivity().startActivity(intent);
 
             }
         });
 
- */
+       */
 
 
 
