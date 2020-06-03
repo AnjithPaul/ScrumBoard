@@ -8,23 +8,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class EmployeeActivity extends AppCompatActivity {
-    public static final String EMPLOYEE ="employee";
-    private String emp ;
-    private Fragment frag = null;
+public class DetailTaskActivity extends AppCompatActivity {
+    public static final String MAINTASK ="main";
+    private String main="Main task 1" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        emp = getIntent().getExtras().getString(EMPLOYEE);
-        Log.v("Employee Activity",emp);
+        setContentView(R.layout.activity_detail_task);
+
 
         setContentView(R.layout.activity_employee);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
@@ -35,14 +32,14 @@ public class EmployeeActivity extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
 
 
-        SectionsPagerAdapter pagerAdapter = new EmployeeActivity.SectionsPagerAdapter(getSupportFragmentManager());
+        DetailTaskActivity.SectionsPagerAdapter pagerAdapter = new DetailTaskActivity.SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(pagerAdapter);
 
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
 
-        //emp = getIntent().getExtras().toString();
+
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -61,16 +58,16 @@ public class EmployeeActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    MainTodoFragment frag= new MainTodoFragment();
-                    frag.setEmp(emp);
+                    DetailTodoFragment frag= new DetailTodoFragment();
+                    frag.setMain(main);
                     return frag;
                 case 1:
-                    MainDoingFragment frag2 =  new MainDoingFragment();
-                    frag2.setEmp(emp);
+                    DetailDoingFragment frag2 =  new DetailDoingFragment();
+                    frag2.setMain(main);
                     return frag2;
                 case 2:
-                    MainDoneFragment frag3 =  new MainDoneFragment();
-                    frag3.setEmp(emp);
+                    DetailDoneFragment frag3 =  new DetailDoneFragment();
+                    frag3.setMain(main);
                     return frag3;
             }
             return null;
@@ -91,4 +88,3 @@ public class EmployeeActivity extends AppCompatActivity {
         }
     }
 }
-

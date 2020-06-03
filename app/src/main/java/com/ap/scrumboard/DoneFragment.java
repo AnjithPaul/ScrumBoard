@@ -85,6 +85,6 @@ public class DoneFragment extends Fragment {
     }
 
     private Cursor getAllItems() {
-        return db.query(Contract.SUB_TABLE, new String[]{Contract.ID,Contract.SUB_TASK,Contract.PARENT,Contract.STATUS,Contract.EMPLOYEE}, null, null, null, null,null);
+        return db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
     }
 }

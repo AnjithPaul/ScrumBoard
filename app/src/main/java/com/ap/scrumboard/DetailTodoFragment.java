@@ -21,25 +21,27 @@ import android.widget.Toast;
 import java.util.Objects;
 
 
-public class ToDoFragment extends Fragment {
+public class DetailTodoFragment extends Fragment {
     private SQLiteDatabase db;
-    private CardListAdapter adapter;
-    private int n;
+    private CardDetailAdapter adapter;
+    private String mainTask;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_to_do,container,false);
+        RecyclerView toDoRecycler = (RecyclerView) inflater.inflate(R.layout.fragment_detail_todo,container,false);
 
         final SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(getActivity());
         try {
+            String s = this.mainTask;
             db = dbHelper.getReadableDatabase();
-           // Cursor subCursor = db.query(Contract.SUB_TABLE,new String[] {Contract.SUB_TASK,Contract.PARENT},Contract.STATUS+"=?",new String[]{"To Do"},Contract.PARENT,null,null);
-            Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
+
+            Cursor cursor = db.rawQuery("SELECT * FROM SUBTABLE WHERE PARENT =? AND STATUS =?",new String[]{s, "To Do"});
 
 
-            adapter = new CardListAdapter(getActivity(), mainCursor,"To Do");
+
+            adapter = new CardDetailAdapter(getActivity(), cursor);
             toDoRecycler.setAdapter(adapter);
 
         }catch (SQLException e){
@@ -48,7 +50,7 @@ public class ToDoFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+       /* new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -56,33 +58,23 @@ public class ToDoFragment extends Fragment {
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                removeItem((String) viewHolder.itemView.getTag());
+                removeItem((int) viewHolder.itemView.getTag());
             }
         }).attachToRecyclerView(toDoRecycler);
 
-    /*   adapter.setListner(new CardListAdapter.Listener() {
-            @Override
-            public void onClick(int id) {
-                Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,id);
-                getActivity().startActivity(intent);
-
-            }
-        });
-
-     */
-
-
-
+        */
 
         return toDoRecycler;
     }
-    private void removeItem(String id){
-        db.delete("PARENTTABLE","PARENTTASK =?",new String[]{id});
+    private void removeItem(int id){
+        db.delete("SUBTABLE","_id =?",new String[]{String.valueOf(id)});
         adapter.swapCursor(getAllItems());
     }
 
     private Cursor getAllItems() {
-        return db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
+        return  db.rawQuery("SELECT * FROM SUBTABLE WHERE PARENT =? AND STATUS =?",new String[]{mainTask, "To Do"});
+    }
+    public void setMain(String string){
+        this.mainTask= string;
     }
 }
