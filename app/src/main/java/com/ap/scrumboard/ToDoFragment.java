@@ -60,17 +60,17 @@ public class ToDoFragment extends Fragment {
             }
         }).attachToRecyclerView(toDoRecycler);
 
-    /*   adapter.setListner(new CardListAdapter.Listener() {
+       adapter.setListner(new CardListAdapter.Listener() {
             @Override
-            public void onClick(int id) {
-                Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,id);
+            public void onClick(String id) {
+                Intent intent = new Intent(getActivity(),DetailTaskActivity.class);
+                intent.putExtra(DetailTaskActivity.MAINTASK,id);
                 getActivity().startActivity(intent);
 
             }
         });
 
-     */
+
 
 
 

@@ -15,15 +15,16 @@ import com.google.android.material.tabs.TabLayout;
 
 public class DetailTaskActivity extends AppCompatActivity {
     public static final String MAINTASK ="main";
-    private String main="Main task 1" ;
+    private String main ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_task);
 
+        main = getIntent().getExtras().getString(MAINTASK);
 
-        setContentView(R.layout.activity_employee);
+
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
