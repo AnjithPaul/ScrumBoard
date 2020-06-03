@@ -22,10 +22,7 @@ public class EmployeeSelectAcitivity extends AppCompatActivity {
 
     private SQLiteOpenHelper dbHelper;
     private SQLiteDatabase db;
-    private Cursor mainCursor;
     private Cursor empCursor;
-    private String[] mainTasks;
-    private  ArrayAdapter<String> mainArrayAdapter;
 
 
     @Override
@@ -44,12 +41,8 @@ public class EmployeeSelectAcitivity extends AppCompatActivity {
 
             db = dbHelper.getReadableDatabase();
             empCursor = db.query(Contract.EMPLOYEE_TABLE,new String[]{Contract.ID,Contract.EMPLOYEE},null,null,null,null,null);
-
             String[] employees = getArray(empCursor);
-
             ArrayAdapter<String> empArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,employees);
-
-
             empArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             Spinner spinner = findViewById(R.id.spinner);

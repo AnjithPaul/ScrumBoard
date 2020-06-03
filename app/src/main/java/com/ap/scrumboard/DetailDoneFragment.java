@@ -36,11 +36,7 @@ public class DetailDoneFragment extends Fragment {
         try {
             String s = this.mainTask;
             db = dbHelper.getReadableDatabase();
-
             Cursor cursor = db.rawQuery("SELECT * FROM SUBTABLE WHERE PARENT =? AND STATUS =?",new String[]{s, "Done"});
-
-
-
             adapter = new CardDetailAdapter(getActivity(), cursor);
             toDoRecycler.setAdapter(adapter);
 
@@ -50,7 +46,7 @@ public class DetailDoneFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
-       /* new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -62,7 +58,7 @@ public class DetailDoneFragment extends Fragment {
             }
         }).attachToRecyclerView(toDoRecycler);
 
-        */
+
 
         return toDoRecycler;
     }

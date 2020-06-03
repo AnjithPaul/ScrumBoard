@@ -5,18 +5,14 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.ViewHolder> {
@@ -24,18 +20,14 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
     public String emp ;
     private Context context;
     private Cursor cursor;
-   // private Listener listner;
     private String status;
-   // private String emp = "Employee1";
 
     public CardListAdaptertwo(Context context ,Cursor cursor,String status,String emp){
         this.context = context;
         this.cursor = cursor;
         this.status= status;
        this.emp = emp;
-
     }
-
 
     @Override
     public CardListAdaptertwo.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -46,7 +38,6 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private CardView cv;
-
         public ViewHolder(CardView v){
             super(v);
             cv=v;
@@ -55,7 +46,6 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
 
     @Override
     public int getItemCount(){
-
         return cursor.getCount();
     }
 
@@ -64,16 +54,13 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
         if(!cursor.moveToPosition(position)){
             return;
         }
-
         CardView cardView = holder.cv;
         String emp = this.emp;
-
         final String mainTask = cursor.getString(cursor.getColumnIndex(Contract.PARENT_TASK));
         SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(context);
         try{
             SQLiteDatabase db = dbHelper.getReadableDatabase();
             Cursor subCursor = db.rawQuery("SELECT SUBTASK FROM SUBTABLE WHERE PARENT =? AND STATUS =? AND EMPLOYEE =?",new String[]{mainTask, status, emp});
-
 
             String[] subTasks = getArray(subCursor);
             ArrayAdapter<String > listAdapter = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1,subTasks);
@@ -81,22 +68,14 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
             ListView listView = cardView.findViewById(R.id.list_in_card);
             listView.setAdapter(listAdapter);
 
-
             subCursor.close();
         }catch (SQLException e){
             Toast.makeText(context,"Database subCursor in adapter",Toast.LENGTH_LONG).show();
         }
 
-
-
         TextView mainTitle = cardView.findViewById(R.id.main_title);
-
         mainTitle.setText(mainTask);
-
         holder.itemView.setTag(mainTask);
-
-
-
 
     }
 
@@ -110,6 +89,7 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
         cursor.close();
         return tasks.toArray(new String[tasks.size()]);
     }
+
     public void swapCursor(Cursor newCursor){
         if(cursor!=null){
             cursor.close();

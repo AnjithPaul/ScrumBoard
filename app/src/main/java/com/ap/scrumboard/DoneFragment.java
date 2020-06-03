@@ -48,7 +48,8 @@ public class DoneFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
-      /*  new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -60,27 +61,20 @@ public class DoneFragment extends Fragment {
             }
         }).attachToRecyclerView(toDoRecycler);
 
-
-       */
-/*        adapter.setListner(new CardListAdapter.Listener() {
+        adapter.setListner(new CardListAdapter.Listener() {
             @Override
-            public void onClick(int id) {
-                Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,id);
+            public void onClick(String id) {
+                Intent intent = new Intent(getActivity(),DetailTaskActivity.class);
+                intent.putExtra(DetailTaskActivity.MAINTASK,id);
                 getActivity().startActivity(intent);
 
             }
         });
 
- */
-
-
-
-
         return toDoRecycler;
     }
     private void removeItem(String id){
-        db.delete("SUBTABLE","PARENT =?",new String[]{id});
+        db.delete("PARENTTABLE","PARENTTASK =?",new String[]{id});
         adapter.swapCursor(getAllItems());
     }
 

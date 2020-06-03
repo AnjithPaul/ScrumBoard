@@ -37,11 +37,7 @@ public class MainTodoFragment extends Fragment {
         try {
             String s = this.emp;
             db = dbHelper.getReadableDatabase();
-            // Cursor subCursor = db.query(Contract.SUB_TABLE,new String[] {Contract.SUB_TASK,Contract.PARENT},Contract.STATUS+"=?",new String[]{"To Do"},Contract.PARENT,null,null);
             Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
-
-
-
             adapter = new CardListAdaptertwo(getActivity(), mainCursor,"To Do",s);
             toDoRecycler.setAdapter(adapter);
 
@@ -51,30 +47,6 @@ public class MainTodoFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
-       /* new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                removeItem((String) viewHolder.itemView.getTag());
-            }
-        }).attachToRecyclerView(toDoRecycler);
-
-
-        adapter.setListner(new CardListAdapter.Listener() {
-            @Override
-            public void onClick(String mainTask) {
-                Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,mainTask);
-                getActivity().startActivity(intent);
-
-            }
-        });
-
-        */
 
         return toDoRecycler;
     }

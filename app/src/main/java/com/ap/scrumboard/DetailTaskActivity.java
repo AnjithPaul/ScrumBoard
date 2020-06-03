@@ -24,14 +24,10 @@ public class DetailTaskActivity extends AppCompatActivity {
 
         main = getIntent().getExtras().getString(MAINTASK);
 
-
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         ActionBar actionbar =getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-
 
         DetailTaskActivity.SectionsPagerAdapter pagerAdapter = new DetailTaskActivity.SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -39,8 +35,6 @@ public class DetailTaskActivity extends AppCompatActivity {
 
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
-
-
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {

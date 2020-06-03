@@ -23,7 +23,7 @@ import java.util.Objects;
 
 public class MainDoingFragment extends Fragment {
     private SQLiteDatabase db;
-    private CardListAdapter adapter;
+    private CardListAdaptertwo adapter;
     private int n;
     private String emp;
 
@@ -35,12 +35,10 @@ public class MainDoingFragment extends Fragment {
 
         final SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(getActivity());
         try {
+            String s= this.emp;
             db = dbHelper.getReadableDatabase();
-            // Cursor subCursor = db.query(Contract.SUB_TABLE,new String[] {Contract.SUB_TASK,Contract.PARENT},Contract.STATUS+"=?",new String[]{"To Do"},Contract.PARENT,null,null);
             Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
-
-
-            adapter = new CardListAdapter(getActivity(), mainCursor,"Doing");
+            adapter = new CardListAdaptertwo(getActivity(), mainCursor,"Doing",s);
             toDoRecycler.setAdapter(adapter);
 
         }catch (SQLException e){
@@ -49,45 +47,10 @@ public class MainDoingFragment extends Fragment {
         }
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
-      /*  new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT |ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                removeItem((String) viewHolder.itemView.getTag());
-            }
-        }).attachToRecyclerView(toDoRecycler);
-
-
-
-        adapter.setListner(new CardListAdapter.Listener() {
-            @Override
-            public void onClick(int id) {
-                Intent intent = new Intent(getActivity(),MainTaskActivity.class);
-                intent.putExtra(MainTaskActivity.MAIN,id);
-                getActivity().startActivity(intent);
-
-            }
-        });
-
-       */
-
-
-
 
         return toDoRecycler;
     }
-    private void removeItem(String id){
-        db.delete("SUBTABLE","PARENT =?",new String[]{id});
-        adapter.swapCursor(getAllItems());
-    }
 
-    private Cursor getAllItems() {
-        return db.query(Contract.SUB_TABLE, new String[]{Contract.ID,Contract.SUB_TASK,Contract.PARENT,Contract.STATUS,Contract.EMPLOYEE}, null, null, null, null,null);
-    }
     public void setEmp(String string){
         this.emp= string;
     }

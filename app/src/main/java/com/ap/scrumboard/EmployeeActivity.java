@@ -23,17 +23,14 @@ public class EmployeeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        emp = getIntent().getExtras().getString(EMPLOYEE);
-        Log.v("Employee Activity",emp);
-
         setContentView(R.layout.activity_employee);
+
+        emp = getIntent().getExtras().getString(EMPLOYEE);
+
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         ActionBar actionbar =getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
-
 
         SectionsPagerAdapter pagerAdapter = new EmployeeActivity.SectionsPagerAdapter(getSupportFragmentManager());
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
@@ -41,8 +38,6 @@ public class EmployeeActivity extends AppCompatActivity {
 
         TabLayout tabLayout =(TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(pager);
-
-        //emp = getIntent().getExtras().toString();
     }
 
     private class SectionsPagerAdapter extends FragmentPagerAdapter {
