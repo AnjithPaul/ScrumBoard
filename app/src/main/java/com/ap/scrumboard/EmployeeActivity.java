@@ -1,5 +1,6 @@
 package com.ap.scrumboard;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
@@ -21,11 +23,16 @@ public class EmployeeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  emp = getIntent().getExtras().toString();
+        emp = getIntent().getExtras().getString(EMPLOYEE);
+        Log.v("Employee Activity",emp);
 
         setContentView(R.layout.activity_employee);
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        ActionBar actionbar =getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
 
         SectionsPagerAdapter pagerAdapter = new EmployeeActivity.SectionsPagerAdapter(getSupportFragmentManager());

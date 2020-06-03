@@ -35,13 +35,14 @@ public class MainTodoFragment extends Fragment {
 
         final SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(getActivity());
         try {
+            String s = this.emp;
             db = dbHelper.getReadableDatabase();
             // Cursor subCursor = db.query(Contract.SUB_TABLE,new String[] {Contract.SUB_TASK,Contract.PARENT},Contract.STATUS+"=?",new String[]{"To Do"},Contract.PARENT,null,null);
             Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
 
 
 
-            adapter = new CardListAdaptertwo(getActivity(), mainCursor,"To Do",emp);
+            adapter = new CardListAdaptertwo(getActivity(), mainCursor,"To Do",s);
             toDoRecycler.setAdapter(adapter);
 
         }catch (SQLException e){

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.ViewHolder> {
 
+    public String emp ;
     private Context context;
     private Cursor cursor;
    // private Listener listner;
@@ -31,7 +32,7 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
         this.context = context;
         this.cursor = cursor;
         this.status= status;
-       // this.emp = emp;
+       this.emp = emp;
 
     }
 
@@ -65,7 +66,7 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
         }
 
         CardView cardView = holder.cv;
-        String emp = "Employee1";
+        String emp = this.emp;
 
         final String mainTask = cursor.getString(cursor.getColumnIndex(Contract.PARENT_TASK));
         SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(context);

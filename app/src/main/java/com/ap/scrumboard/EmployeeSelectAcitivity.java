@@ -1,6 +1,8 @@
 package com.ap.scrumboard;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -29,6 +32,12 @@ public class EmployeeSelectAcitivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_select_acitivity);
+
+        Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionbar =getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         dbHelper = new ScrumDatabaseHelper(this);
         try{
@@ -55,6 +64,7 @@ public class EmployeeSelectAcitivity extends AppCompatActivity {
     public void onClickSelect(View view){
         Spinner spinner = findViewById(R.id.spinner);
         String emp = spinner.getSelectedItem().toString();
+        Log.v("Employ select",emp);
         Intent intent = new Intent(this,EmployeeActivity.class);
         intent.putExtra(EmployeeActivity.EMPLOYEE,emp);
         startActivity(intent);

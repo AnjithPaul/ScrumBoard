@@ -73,12 +73,12 @@ public class ScrumDatabaseHelper extends SQLiteOpenHelper {
             db.execSQL(" CREATE TABLE " + Contract.SUB_TABLE + "("+ Contract.ID +" INTEGER PRIMARY KEY AUTOINCREMENT," + Contract.SUB_TASK + " TEXT,"+ Contract.PARENT+" TEXT, STATUS TEXT,EMPLOYEE TEXT);");
 
             insertSub(db,"Sub task 1","Main task 1","To Do","Employee1");
-            insertSub(db,"Sub task 2","Main task 1","To Do","Employee1");
+            insertSub(db,"Sub task 2","Main task 1","To Do","Employee2");
             insertSub(db,"Sub task 3","Main task 1","To Do","Employee1");
             insertSub(db,"Sub task 4","Main task 2","To Do","Employee1");
-            insertSub(db,"Sub task 5","Main task 2","To Do","Employee1");
+            insertSub(db,"Sub task 5","Main task 2","To Do","Employee2");
             insertSub(db,"Sub task 6","Main task 2","Done","Employee1");
-            insertSub(db,"Sub task ","Main task 2","Doing","Employee1");
+            insertSub(db,"Sub task ","Main task 2","Doing","Employee2");
 
 
         }

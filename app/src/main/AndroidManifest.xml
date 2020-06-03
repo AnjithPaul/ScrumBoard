@@ -9,10 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EmployeeSelectAcitivity">
+        <activity android:name=".EmployeeSelectAcitivity"
+            android:parentActivityName=".MainActivity">
 
         </activity>
-        <activity android:name=".EmployeeActivity" >
+        <activity android:name=".EmployeeActivity"
+            android:parentActivityName=".EmployeeSelectAcitivity">
 
         </activity>
         <activity android:name=".MainTaskActivity" android:parentActivityName=".MainActivity" />
