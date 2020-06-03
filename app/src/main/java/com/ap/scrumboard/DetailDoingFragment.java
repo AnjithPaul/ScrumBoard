@@ -36,11 +36,7 @@ public class DetailDoingFragment extends Fragment {
         try {
             String s = this.mainTask;
             db = dbHelper.getReadableDatabase();
-
             Cursor cursor = db.rawQuery("SELECT * FROM SUBTABLE WHERE PARENT =? AND STATUS =?",new String[]{s, "Doing"});
-
-
-
             adapter = new CardDetailAdapter(getActivity(), cursor);
             toDoRecycler.setAdapter(adapter);
 

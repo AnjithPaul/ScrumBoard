@@ -77,7 +77,7 @@ public class DoneFragment extends Fragment {
         db.delete("PARENTTABLE","PARENTTASK =?",new String[]{id});
         adapter.swapCursor(getAllItems());
     }
-
+   
     private Cursor getAllItems() {
         return db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
     }
