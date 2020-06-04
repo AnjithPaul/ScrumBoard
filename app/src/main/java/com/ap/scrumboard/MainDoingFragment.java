@@ -37,7 +37,7 @@ public class MainDoingFragment extends Fragment {
         try {
             String s= this.emp;
             db = dbHelper.getReadableDatabase();
-            Cursor mainCursor = db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
+            Cursor mainCursor = db.rawQuery("SELECT DISTINCT PARENT FROM SUBTABLE WHERE  STATUS =? AND EMPLOYEE =?",new String[]{"Doing", emp});
             adapter = new CardListAdaptertwo(getActivity(), mainCursor,"Doing",s);
             toDoRecycler.setAdapter(adapter);
 

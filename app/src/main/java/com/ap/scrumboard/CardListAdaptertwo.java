@@ -56,7 +56,7 @@ public class CardListAdaptertwo extends RecyclerView.Adapter<CardListAdaptertwo.
         }
         CardView cardView = holder.cv;
         String emp = this.emp;
-        final String mainTask = cursor.getString(cursor.getColumnIndex(Contract.PARENT_TASK));
+        final String mainTask = cursor.getString(cursor.getColumnIndex(Contract.PARENT));
         SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(context);
         try{
             SQLiteDatabase db = dbHelper.getReadableDatabase();
