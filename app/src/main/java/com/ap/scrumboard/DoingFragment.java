@@ -44,20 +44,6 @@ public class DoingFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                removeItem((String) viewHolder.itemView.getTag());
-            }
-        }).attachToRecyclerView(toDoRecycler);
-
-
-
         adapter.setListner(new CardListAdapter.Listener() {
             @Override
             public void onClick(String id) {
@@ -68,10 +54,13 @@ public class DoingFragment extends Fragment {
             }
         });
 
+        adapter.setLongListener(new CardListAdapter.LongListener() {
+            @Override
+            public void onLongClick(String maintask, CardListAdapter.ViewHolder viewHolder) {
+                removeItem((String) viewHolder.itemView.getTag());
 
-
-
-
+            }
+        });
 
         return toDoRecycler;
     }

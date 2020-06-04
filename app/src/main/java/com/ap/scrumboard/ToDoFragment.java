@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Vibrator;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,17 +48,7 @@ public class ToDoFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toDoRecycler.setLayoutManager(layoutManager);
 
-        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT ) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
 
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                removeItem((String) viewHolder.itemView.getTag());
-            }
-        }).attachToRecyclerView(toDoRecycler);
 
        adapter.setListner(new CardListAdapter.Listener() {
             @Override
@@ -68,14 +60,27 @@ public class ToDoFragment extends Fragment {
             }
         });
 
+       adapter.setLongListener(new CardListAdapter.LongListener() {
+           @Override
+           public void onLongClick(String maintask, CardListAdapter.ViewHolder viewHolder) {
+               removeItem((String) viewHolder.itemView.getTag());
+               vibrate(requireView());
+
+           }
+       });
+
         return toDoRecycler;
     }
     private void removeItem(String id){
         db.delete("PARENTTABLE","PARENTTASK =?",new String[]{id});
         adapter.swapCursor(getAllItems());
+
     }
 
     private Cursor getAllItems() {
         return db.query(Contract.PARENT_TABLE,new String[]{Contract.PARENT_TASK},null,null,null,null,null);
+    }
+    private void vibrate(View view){
+        view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
     }
 }

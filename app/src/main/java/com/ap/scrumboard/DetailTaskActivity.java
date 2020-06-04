@@ -26,6 +26,7 @@ public class DetailTaskActivity extends AppCompatActivity {
 
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(main);
         ActionBar actionbar =getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 

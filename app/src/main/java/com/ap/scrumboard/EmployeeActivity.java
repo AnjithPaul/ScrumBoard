@@ -29,6 +29,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
         Toolbar toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(emp);
         ActionBar actionbar =getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
 

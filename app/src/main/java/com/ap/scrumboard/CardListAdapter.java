@@ -23,6 +23,7 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     private Context context;
     private Cursor cursor;
     private Listener listner;
+    private LongListener longListener;
     private String status;
 
     public CardListAdapter(Context context ,Cursor cursor,String status){
@@ -34,9 +35,15 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     interface Listener {
         void onClick(String maintask);
     }
+    interface LongListener{
+        void onLongClick(String maintask,ViewHolder holder);
+    }
 
     public void setListner(Listener listner) {
         this.listner = listner;
+    }
+    public void setLongListener(LongListener longListener){
+        this.longListener = longListener;
     }
 
     @Override
@@ -62,12 +69,12 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder,final int position){
+    public void onBindViewHolder(final ViewHolder holder, final int position){
         if(!cursor.moveToPosition(position)){
             return;
         }
 
-        CardView cardView = holder.cv;
+        final CardView cardView = holder.cv;
 
         final String mainTask = cursor.getString(cursor.getColumnIndex(Contract.PARENT_TASK));
         SQLiteOpenHelper dbHelper = new ScrumDatabaseHelper(context);
@@ -104,6 +111,17 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
                 }
             }
         });
+
+        cardView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(longListener!=null){
+                    longListener.onLongClick(mainTask,holder);
+                }
+                return true;
+            }
+        });
+
 
 
 
