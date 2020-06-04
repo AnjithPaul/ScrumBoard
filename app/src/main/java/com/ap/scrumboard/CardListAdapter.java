@@ -106,6 +106,7 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.ViewHo
         });
 
 
+
     }
 
     public String[] getArray(Cursor cursor){
